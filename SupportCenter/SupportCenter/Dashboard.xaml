@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SupportCenter.Dashboard"
+             Title="Test"
+             Icon="">
+    <StackLayout>
+      <ListView x:Name="ListViewTickets" RowHeight="70">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Horizontal" Padding="10,10,10,5">
+                  <Label x:Name="LabelTicketNumber" Text="{Binding TicketNumber}" FontSize="16"/>
+                  <Label x:Name="LabelText" Text="{Binding Text}" FontSize="16" FontAttributes="Bold"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Padding="10,0,10,10">
+                  <Label x:Name="LabelDate" Text="{Binding DateOpened}" FontSize="16"/>
+                  <Label x:Name="LabelState" Text="{Binding State}" FontSize="16" />
+                </StackLayout>
+              </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+</ContentPage>
