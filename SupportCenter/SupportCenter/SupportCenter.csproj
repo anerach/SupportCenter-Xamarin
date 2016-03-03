@@ -39,11 +39,16 @@
     <Compile Include="Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HardwareTicket.cs" />
+    <Compile Include="Models\HardwareTicket.cs" />
+    <Compile Include="Models\Ticket.cs" />
+    <Compile Include="Models\TicketResponse.cs" />
+    <Compile Include="Models\TicketState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ticket.cs" />
-    <Compile Include="TicketResponse.cs" />
-    <Compile Include="TicketState.cs" />
+    <Compile Include="TicketDetails.xaml.cs">
+      <DependentUpon>TicketDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TicketResponseView.cs" />
+    <Compile Include="Views\TicketView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -67,13 +72,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Domain\Domain.csproj">
-      <Project>{6b804a16-8b06-4c05-ab58-cc8cbb8c1c32}</Project>
-      <Name>Domain</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Dashboard.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Dashboard.xaml">
+    <EmbeddedResource Include="TicketDetails.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

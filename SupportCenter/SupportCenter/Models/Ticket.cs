@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SupportCenter
+namespace SupportCenter.Domain.Models
 {
     public class Ticket
     {
@@ -15,8 +15,7 @@ namespace SupportCenter
 
         public override string ToString()
         {
-            return base.ToString();
-            //return $"#{TicketNumber} - {Text}";
+            return $"#{TicketNumber} - {Text}";
         }
     }
 }

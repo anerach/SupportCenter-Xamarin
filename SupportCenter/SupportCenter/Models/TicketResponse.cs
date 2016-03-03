@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SupportCenter
+namespace SupportCenter.Domain.Models
 {
   public class TicketResponse
   {
