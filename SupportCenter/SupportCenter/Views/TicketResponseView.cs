@@ -20,5 +20,10 @@ namespace SupportCenter.Domain.Views
         {
             TicketResponse = ticketResponse;
         }
+
+        public override string ToString()
+        {
+            return Text;
+        }
     }
 }

@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SupportCenter.TicketDetails">
-  <StackLayout Orientation="Vertical" Padding="10">
-    <StackLayout Orientation="Vertical">
+  <StackLayout Orientation="Vertical">
+    <StackLayout Orientation="Vertical" Padding="10">
       <Label x:Name="LabelDetailsTitle" Text="Details" FontSize="20"/>
       <StackLayout Orientation="Horizontal">
         <Label x:Name="LabelId" Text="{Binding TicketNumber}"/>
@@ -17,8 +17,10 @@
         <Label x:Name="LabelText" Text="{Binding Text}"/>
       </StackLayout>
     </StackLayout>
-    <StackLayout>
-      <Label x:Name="LabelResponsesTitle" Text="Responses" FontSize="20"/>
+    <StackLayout Orientation="Vertical">
+      <StackLayout Padding="10">
+        <Label x:Name="LabelResponsesTitle" Text="Responses" FontSize="20"/>
+      </StackLayout>
       <ListView ItemsSource="{Binding Responses}"></ListView>
     </StackLayout>
   </StackLayout>

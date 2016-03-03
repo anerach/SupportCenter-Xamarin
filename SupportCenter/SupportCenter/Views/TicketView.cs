@@ -17,7 +17,7 @@ namespace SupportCenter.Domain.Views
         public string DateOpened => Ticket.DateOpened.ToString("hh:mm dd/MM/yy");
         public string State => Ticket.State.ToString();
 
-        public ICollection<TicketResponse> Responses => Ticket.Responses;
+        public ICollection<TicketResponseView> Responses => Ticket.Responses.Select(response => new TicketResponseView(response)).ToList();
 
         public TicketView(Ticket ticket)
         {
