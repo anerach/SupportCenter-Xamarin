@@ -11,7 +11,7 @@ namespace SupportCenter.Domain.Models
         public DateTime DateOpened { get; set; }
         public TicketState State { get; set; }
 
-        public ICollection<TicketResponse> Responses { get; set; }
+        public List<TicketResponse> Responses { get; set; }
 
         public override string ToString()
         {
