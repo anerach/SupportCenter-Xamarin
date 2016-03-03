@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SupportCenter.Domain.Models;
+using Xamarin.Forms;
 
 namespace SupportCenter.Domain.Views
 {
@@ -14,7 +15,9 @@ namespace SupportCenter.Domain.Views
         public string Id => $"#{TicketResponse.Id}";
         public string Text => TicketResponse.Text;
         public string Date => TicketResponse.Date.ToString("hh:mm dd/MM/yy");
-        public bool IsClientResponse => TicketResponse.IsClientResponse;
+        public string IsClientResponse => TicketResponse.IsClientResponse ? "Client" : "Staff";
+
+        public Color IsClientResponseColor => TicketResponse.IsClientResponse ? Color.Fuchsia : Color.Red;
 
         public TicketResponseView(TicketResponse ticketResponse)
         {
