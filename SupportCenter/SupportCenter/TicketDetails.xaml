@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SupportCenter.TicketDetails">
+  <StackLayout Orientation="Vertical" Padding="10">
+    <StackLayout Orientation="Vertical">
+      <Label x:Name="LabelDetailsTitle" Text="Details" FontSize="20"/>
+      <StackLayout Orientation="Horizontal">
+        <Label x:Name="LabelId" Text="{Binding TicketNumber}"/>
+        <Label x:Name="LabelDateOpened" Text="{Binding DateOpened}" HorizontalOptions="EndAndExpand"/>
+      </StackLayout>
+      <StackLayout Orientation="Horizontal">
+        <Label x:Name="LabelAccountId" Text="{Binding AccountId}"/>
+        <Label x:Name="LabelState" Text="{Binding State}" HorizontalOptions="EndAndExpand"/>
+      </StackLayout>
+      <StackLayout Orientation="Horizontal" Padding="0,20,0,0">
+        <Label x:Name="LabelText" Text="{Binding Text}"/>
+      </StackLayout>
+    </StackLayout>
+    <StackLayout>
+      <Label x:Name="LabelResponsesTitle" Text="Responses" FontSize="20"/>
+      <ListView ItemsSource="{Binding Responses}"></ListView>
+    </StackLayout>
+  </StackLayout>
+</ContentPage>

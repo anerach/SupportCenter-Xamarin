@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Newtonsoft.Json;
+using SupportCenter.Domain.Views;
+using SupportCenter.Domain.Models;
 
 using Xamarin.Forms;
 
@@ -18,7 +22,7 @@ namespace SupportCenter
         public Dashboard()
         {
             InitializeComponent();
-            
+
             LoadTickets();
         }
 
@@ -34,10 +38,52 @@ namespace SupportCenter
             {
                 var content = await response.Content.ReadAsStringAsync();
                 var tickets = JsonConvert.DeserializeObject<List<Ticket>>(content);
-                var observable = new ObservableCollection<Ticket>(tickets);
+
+                var ticketViews = tickets.Select(ticket => new TicketView(ticket)).ToList();
+
+                var observable = new ObservableCollection<TicketView>(ticketViews);
 
                 ListViewTickets.ItemsSource = observable;
             }
+        }
+
+        private Command loadTicketsCommand;
+
+        public Command LoadTicketsCommand
+        {
+            get
+            {
+                return loadTicketsCommand ?? (loadTicketsCommand = new Command(ExecuteLoadTicketsCommand, () => !IsBusy));
+            }
+        }
+
+        private async void ExecuteLoadTicketsCommand()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+            Debug.WriteLine("Ok");
+            LoadTicketsCommand.ChangeCanExecute();
+            
+            LoadTickets();
+
+            IsBusy = false;
+            LoadTicketsCommand.ChangeCanExecute();
+        }
+
+        private void ListViewTickets_OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            var ticket = (TicketView)e.Item;
+
+            Navigation.PushAsync(new TicketDetails(ticket));
+        }
+
+        private void ListViewTickets_OnRefreshing(object sender, EventArgs e)
+        {/*
+            //DisplayAlert("Ok", "Ok", "Ok");
+            ListViewTickets.ItemsSource = null;
+            LoadTickets();*/
         }
     }
 }
