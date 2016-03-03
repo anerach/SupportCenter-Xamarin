@@ -12,7 +12,7 @@ namespace SupportCenter.Domain.Views
         private Ticket Ticket { get; set; }
 
         public string TicketNumber => $"#{Ticket.TicketNumber}";
-        public string AccountId => Ticket.AccountId.ToString();
+        public string AccountId => $"Account ID: {Ticket.AccountId}";
         public string Text => Ticket.Text;
         public string DateOpened => Ticket.DateOpened.ToString("hh:mm dd/MM/yy");
         public string State => Ticket.State.ToString();
