@@ -97,8 +97,41 @@ namespace SupportCenter.DAL
                     success = true;
                 }
             }
-
             return true;
+        }
+
+        public TicketResponse CreateTicketResponse(TicketResponse response)
+        {
+            string uri = BaseUrl + "TicketResponse";
+            TicketResponse returnResponse = null;
+            using (var client = GetClient())
+            {
+                HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, uri);
+                object data = new
+                {
+                    TicketNumber = response.Ticket.TicketNumber,
+                    ResponseText = response.Text,
+                    IsClientResponse = response.IsClientResponse
+                };
+
+                string dataAsJsonString = JsonConvert.SerializeObject(data);
+                httpRequest.Content = new StringContent(dataAsJsonString, Encoding.UTF8, "application/json");
+                httpRequest.Headers.Add("Accept", "application/json");
+
+                HttpResponseMessage httpResponse = client.SendAsync(httpRequest).Result;
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    string responseContentAsString = httpResponse.Content.ReadAsStringAsync().Result;
+                    returnResponse = JsonConvert.DeserializeObject<TicketResponse>(responseContentAsString);
+                }
+                else
+                {
+                    //throw new Exception(httpResponse.StatusCode + " " + httpResponse.ReasonPhrase);
+                }
+            }
+
+            return returnResponse;
         }
     }
 }

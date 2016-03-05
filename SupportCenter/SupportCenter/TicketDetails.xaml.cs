@@ -31,8 +31,13 @@ namespace SupportCenter
             }
             else
             {
-                DisplayAlert("Oh no!", "Something went wrong... Please try again in a minute...");
+                DisplayAlert("Oh no!", "Something went wrong... Please try again in a minute...", "OK");
             }
+        }
+
+        private void Answer_OnClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new AnswerTicket(currentTicket));
         }
     }
 }

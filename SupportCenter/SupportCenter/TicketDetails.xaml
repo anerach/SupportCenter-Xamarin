@@ -22,6 +22,7 @@
         <Label x:Name="LabelResponsesTitle" Text="Responses" FontSize="20"/>
       </StackLayout>
       <Button x:Name="Close" Text="Close" Clicked="Close_OnClicked"/>
+<Button x:Name="Answer" Text="Answer" Clicked="Answer_OnClicked"/>
       <ListView RowHeight="70" ItemsSource="{Binding Responses}">
         <ListView.ItemTemplate>
           <DataTemplate>
