@@ -62,5 +62,10 @@ namespace SupportCenter
 
             Navigation.PushAsync(new TicketDetails(ticket));
         }
+
+        private void BtnCreate_OnClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new TicketCreate());
+        }
     }
 }

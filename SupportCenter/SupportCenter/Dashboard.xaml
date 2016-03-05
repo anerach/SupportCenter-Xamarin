@@ -23,5 +23,9 @@
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
+    <Button
+      x:Name="btnCreate"
+      Clicked="BtnCreate_OnClicked"
+      Text="Create a new ticket"/>
   </StackLayout>
 </ContentPage>
