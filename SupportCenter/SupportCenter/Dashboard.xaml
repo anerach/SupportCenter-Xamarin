@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SupportCenter.Dashboard"
-             Title="Test"
+             Title="All tickets"
              Icon="">
   <StackLayout>
     <ListView x:Name="ListViewTickets" RowHeight="70" ItemTapped="ListViewTickets_OnItemTapped" IsPullToRefreshEnabled="True">

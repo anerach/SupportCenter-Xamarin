@@ -11,6 +11,7 @@ using System.Windows.Input;
 using Newtonsoft.Json;
 using SupportCenter.Domain.Views;
 using SupportCenter.Domain.Models;
+using SupportCenter.DAL;
 
 using Xamarin.Forms;
 
@@ -19,6 +20,8 @@ namespace SupportCenter
     public partial class Dashboard : ContentPage
     {
         private const string BaseUrl = "http://dappersupportcenter.azurewebsites.net/api/";
+
+        private RESTRepository rep = new RESTRepository();
 
         public Dashboard()
         {
@@ -39,7 +42,7 @@ namespace SupportCenter
 
         private async void LoadTickets()
         {
-            var url = BaseUrl + "Ticket/All";
+           /* var url = BaseUrl + "Ticket/All";
             var uri = new Uri(string.Format(url, string.Empty));
             var client = new HttpClient();
 
@@ -53,7 +56,12 @@ namespace SupportCenter
                 var observable = new ObservableCollection<TicketView>(ticketViews);
 
                 ListViewTickets.ItemsSource = observable;
-            }
+            }*/
+
+            IEnumerable<TicketView> ticketViews = rep.GetTickets().Select(ticket => new TicketView(ticket)).ToList();
+            var observable = new ObservableCollection<TicketView>(ticketViews);
+
+            ListViewTickets.ItemsSource = observable;
         }
 
         private void ListViewTickets_OnItemTapped(object sender, ItemTappedEventArgs e)
