@@ -77,5 +77,28 @@ namespace SupportCenter.DAL
 
             return returnTicket;
         }
+
+        public bool CloseTicket(int ticketNumber)
+        {
+            bool success;
+            using (var client = GetClient())
+            {
+                string uri = BaseUrl + "Ticket/" + ticketNumber + "/State/Closed";
+                HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Put, uri);
+
+                HttpResponseMessage httpResponse = client.SendAsync(httpRequest).Result;
+
+                if (!httpResponse.IsSuccessStatusCode)
+                {
+                    success = false;
+                }
+                else
+                {
+                    success = true;
+                }
+            }
+
+            return true;
+        }
     }
 }
