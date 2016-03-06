@@ -104,6 +104,7 @@ namespace SupportCenter.DAL
         {
             string uri = BaseUrl + "TicketResponse";
             TicketResponse returnResponse = null;
+
             using (var client = GetClient())
             {
                 HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, uri);
@@ -127,7 +128,7 @@ namespace SupportCenter.DAL
                 }
                 else
                 {
-                    //throw new Exception(httpResponse.StatusCode + " " + httpResponse.ReasonPhrase);
+                    throw new Exception(httpResponse.StatusCode + " " + httpResponse.ReasonPhrase);
                 }
             }
 

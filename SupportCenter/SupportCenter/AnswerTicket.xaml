@@ -6,7 +6,7 @@
   <Label Text="Response"/>
   <Entry x:Name="Response" />
 <Label Text="Client?"/>
-  <Switch x:Name="Client" IsEnabled="False"/>
+  <Switch x:Name="Client" IsToggled="True"/>
     <Button Text="Create Ticket!" Clicked="Button_OnClicked"/>
     </StackLayout>
 </ContentPage>

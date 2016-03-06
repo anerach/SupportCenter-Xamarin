@@ -30,7 +30,8 @@ namespace SupportCenter
                 Ticket = new Ticket() { TicketNumber = Ticket.TicketNumberInt}
             };
 
-            repo.CreateTicketResponse(tr);
+            TicketResponse returned = repo.CreateTicketResponse(tr);
+            Navigation.PopAsync(true);
         }
     }
 }
