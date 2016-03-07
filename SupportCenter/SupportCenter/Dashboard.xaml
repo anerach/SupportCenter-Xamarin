@@ -9,6 +9,10 @@
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
+            <ViewCell.ContextActions>
+              <MenuItem Clicked="OnClose" CommandParameter="{Binding .}" Text="Close" />
+              <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+            </ViewCell.ContextActions>
             <StackLayout Orientation="Vertical">
               <StackLayout Orientation="Horizontal" Padding="10,10,10,5">
                 <Label x:Name="LabelTicketNumber" Text="{Binding TicketNumber}" FontSize="16" WidthRequest="40"/>

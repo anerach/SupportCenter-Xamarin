@@ -12,8 +12,10 @@ namespace SupportCenter
 {
     public partial class AnswerTicket : ContentPage
     {
-        RESTRepository repo = new RESTRepository();
+        private RESTRepository repo = new RESTRepository();
+
         private TicketView Ticket;
+
         public AnswerTicket(TicketView ticket)
         {
             InitializeComponent();

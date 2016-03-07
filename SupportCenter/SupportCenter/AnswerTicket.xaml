@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SupportCenter.AnswerTicket">
   <StackLayout Orientation="Vertical" Padding="10">
-  <Label Text="Response"/>
-  <Entry x:Name="Response" />
-<Label Text="Client?"/>
-  <Switch x:Name="Client" IsToggled="True"/>
+    <Label Text="Response"/>
+    <Entry x:Name="Response" />
+    <Label Text="Client?"/>
+    <Switch x:Name="Client" IsToggled="True"/>
     <Button Text="Create Ticket!" Clicked="Button_OnClicked"/>
-    </StackLayout>
+  </StackLayout>
 </ContentPage>

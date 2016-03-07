@@ -13,21 +13,25 @@ namespace SupportCenter
 {
     public partial class TicketCreate : ContentPage
     {
-        RESTRepository rep = new RESTRepository();
+        private readonly RESTRepository repo;
+
         public TicketCreate()
         {
             InitializeComponent();
+
+            repo = new RESTRepository();
         }
-
-
+        
         private async void BtCreate_OnClicked(object sender, EventArgs e)
         {
-            int accId = Convert.ToInt32(AccountId.Text);
-            string problem = Problem.Text;
-            Ticket createdTicket = rep.CreateTicket(accId, problem);
-            if (createdTicket != null)
+            var accId = Convert.ToInt32(AccountId.Text);
+            var problem = Problem.Text;
+
+            var ticket = repo.CreateTicket(accId, problem);
+
+            if (ticket != null)
             {
-                DisplayAlert("Ticket created!", createdTicket.Text, "OK");
+                DisplayAlert("Ticket created!", ticket.Text, "OK");
             }
             else
             {

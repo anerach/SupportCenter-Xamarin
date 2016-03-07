@@ -21,7 +21,7 @@ namespace SupportCenter
     {
         private const string BaseUrl = "http://dappersupportcenter.azurewebsites.net/api/";
 
-        private RESTRepository rep = new RESTRepository();
+        private RESTRepository repo = new RESTRepository();
 
         public Dashboard()
         {
@@ -39,26 +39,10 @@ namespace SupportCenter
                 ListViewTickets.IsRefreshing = false;
             });
         }
-
-        private async void LoadTickets()
+        
+        private void LoadTickets()
         {
-           /* var url = BaseUrl + "Ticket/All";
-            var uri = new Uri(string.Format(url, string.Empty));
-            var client = new HttpClient();
-
-            var response = await client.GetAsync(uri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                var tickets = JsonConvert.DeserializeObject<List<Ticket>>(content);
-                var ticketViews = tickets.Select(ticket => new TicketView(ticket)).ToList();
-                var observable = new ObservableCollection<TicketView>(ticketViews);
-
-                ListViewTickets.ItemsSource = observable;
-            }*/
-
-            IEnumerable<TicketView> ticketViews = rep.GetTickets().Select(ticket => new TicketView(ticket)).ToList();
+            IEnumerable<TicketView> ticketViews = repo.GetTickets().Select(ticket => new TicketView(ticket)).ToList();
             var observable = new ObservableCollection<TicketView>(ticketViews);
 
             ListViewTickets.ItemsSource = observable;
@@ -74,6 +58,20 @@ namespace SupportCenter
         private void BtnCreate_OnClicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new TicketCreate());
+        }
+
+        public void OnClose(object sender, EventArgs e)
+        {
+            var ticketView = (TicketView) ((MenuItem) sender).CommandParameter;
+
+            repo.CloseTicket(ticketView.TicketNumberInt);
+        }
+
+        public void OnDelete(object sender, EventArgs e)
+        {
+            var ticketView = (TicketView)((MenuItem)sender).CommandParameter;
+
+            repo.DeleteTicket(ticketView.TicketNumberInt);
         }
     }
 }
