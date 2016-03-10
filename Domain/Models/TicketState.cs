@@ -1,4 +1,4 @@
-﻿namespace SupportCenter.Domain.Models
+﻿namespace SC.BL.Domain
 {
   public enum TicketState : byte
   {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SupportCenter.Domain.Models
+namespace SC.BL.Domain
 {
     public class Ticket
     {

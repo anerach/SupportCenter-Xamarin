@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SupportCenter.Dashboard"
-             Title="All tickets"
-             Icon="">
+             Title="All Tickets" Appearing="OnAppearing">
   <StackLayout>
     <ListView x:Name="ListViewTickets" RowHeight="70" ItemTapped="ListViewTickets_OnItemTapped" IsPullToRefreshEnabled="True">
       <ListView.ItemTemplate>
@@ -19,7 +18,7 @@
                 <Label x:Name="LabelText" Text="{Binding Text}" FontSize="16" FontAttributes="Bold"/>
               </StackLayout>
               <StackLayout Orientation="Horizontal" Padding="10,0,10,10">
-                <Label x:Name="LabelState" Text="{Binding State}" FontSize="16" />
+                <Label x:Name="LabelState" Text="{Binding State}" TextColor="{Binding StateColor}" FontSize="16" />
                 <Label x:Name="LabelDate" Text="{Binding DateOpened}" FontSize="16" HorizontalOptions="EndAndExpand"/>
               </StackLayout>
             </StackLayout>
@@ -27,9 +26,8 @@
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
-    <Button
-      x:Name="btnCreate"
-      Clicked="BtnCreate_OnClicked"
-      Text="Create a new ticket"/>
+    <StackLayout Padding="10">
+      <Button x:Name="btnCreate" Clicked="BtnCreate_OnClicked" Text="Create a new ticket"/>
+    </StackLayout>
   </StackLayout>
 </ContentPage>

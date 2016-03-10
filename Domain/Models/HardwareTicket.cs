@@ -1,7 +1,7 @@
-﻿namespace SupportCenter.Domain.Models
+﻿namespace SC.BL.Domain
 {
-  public class HardwareTicket : Ticket
-  {
-    public string DeviceName { get; set; }
-  }
+    public class HardwareTicket : Ticket
+    {
+        public string DeviceName { get; set; }
+    }
 }

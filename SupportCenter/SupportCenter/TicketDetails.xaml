@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SupportCenter.TicketDetails">
+             x:Class="SupportCenter.TicketDetails"
+             Title="Ticket Details" Appearing="TicketDetails_OnAppearing">
   <StackLayout Orientation="Vertical">
     <StackLayout Orientation="Vertical" Padding="10">
-      <Label x:Name="LabelDetailsTitle" Text="Details" FontSize="20"/>
+      <Label Text="Details" FontSize="20"/>
       <StackLayout Orientation="Horizontal">
         <Label x:Name="LabelId" Text="{Binding TicketNumber}"/>
         <Label x:Name="LabelDateOpened" Text="{Binding DateOpened}" HorizontalOptions="EndAndExpand"/>
@@ -21,9 +22,9 @@
       <StackLayout Padding="10">
         <Label x:Name="LabelResponsesTitle" Text="Responses" FontSize="20"/>
       </StackLayout>
-      <Button x:Name="Close" Text="Close" Clicked="Close_OnClicked"/>
-<Button x:Name="Answer" Text="Answer" Clicked="Answer_OnClicked"/>
-      <ListView RowHeight="70" ItemsSource="{Binding Responses}">
+      <Button x:Name="btnClose" Text="Close" Clicked="btnClose_OnClicked"/>
+      <Button x:Name="btnAnswer" Text="Answer" Clicked="btnAnswer_OnClicked"/>
+      <ListView x:Name="ListViewResponses" RowHeight="70" ItemsSource="{Binding Responses}" ItemTapped="ListViewResponses_OnItemTapped">
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>

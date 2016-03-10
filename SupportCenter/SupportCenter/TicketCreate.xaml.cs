@@ -5,39 +5,41 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using SupportCenter.DAL;
-using SupportCenter.Domain.Models;
+using SC.BL;
+using SC.BL.Domain;
 using Xamarin.Forms;
 
 namespace SupportCenter
 {
     public partial class TicketCreate : ContentPage
     {
-        private readonly RESTRepository repo;
+        private readonly TicketManager manager;
 
         public TicketCreate()
         {
             InitializeComponent();
 
-            repo = new RESTRepository();
+            manager = new TicketManager();
         }
         
-        private async void BtCreate_OnClicked(object sender, EventArgs e)
+        private async void BtnCreate_OnClicked(object sender, EventArgs e)
         {
-            var accId = Convert.ToInt32(AccountId.Text);
-            var problem = Problem.Text;
+            Ticket ticket = new Ticket()
+            {
+                AccountId = Convert.ToInt32(txtAccountId.Text),
+                Text = txtText.Text
+            };
 
-            var ticket = repo.CreateTicket(accId, problem);
+            ticket = manager.CreateTicket(ticket);
 
             if (ticket != null)
             {
-                DisplayAlert("Ticket created!", ticket.Text, "OK");
+                await DisplayAlert("Ticket created!", ticket.Text, "OK");
+                await Navigation.PopAsync(true);
             }
             else
-            {
-                DisplayAlert("Oy Vey!", "Something went wrong...\nTry again in a minute please...", "OK");
-            }
-
+                await DisplayAlert("Oy Vey!", "Something went wrong...\nTry again in a minute please...", "OK");
+            
         }
     }
 }

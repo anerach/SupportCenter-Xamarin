@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using SupportCenter.Domain.Models;
+using SC.BL.Domain;
 
-namespace SupportCenter.DAL
+namespace SC.DAL
 {
-    public class RESTRepository
+    public class RESTProxy
     {
         private const string BaseUrl = "http://dappersupportcenter.azurewebsites.net/api/";
 
@@ -17,7 +18,7 @@ namespace SupportCenter.DAL
         {
             var uri = BaseUrl + "Ticket/All";
 
-            IEnumerable<Ticket> returnTickets;
+            IEnumerable<Ticket> tickets;
 
             using (var client = new HttpClient())
             {
@@ -28,10 +29,31 @@ namespace SupportCenter.DAL
 
                 var content = response.Content.ReadAsStringAsync().Result;
 
-                returnTickets = JsonConvert.DeserializeObject<List<Ticket>>(content);
+                tickets = JsonConvert.DeserializeObject<List<Ticket>>(content);
             }
 
-            return returnTickets;
+            return tickets;
+        }
+
+        public Ticket GetTicket(int ticketNumber)
+        {
+            var uri = BaseUrl + "Ticket/" + ticketNumber;
+
+            Ticket ticket;
+
+            using (var client = new HttpClient())
+            {
+                var response = client.GetAsync(uri).Result;
+
+                if (!response.IsSuccessStatusCode)
+                    return null;
+
+                var content = response.Content.ReadAsStringAsync().Result;
+
+                ticket = JsonConvert.DeserializeObject<Ticket>(content);
+            }
+
+            return ticket;
         }
 
         public Ticket CreateTicket(int accountId, string problem)
@@ -84,7 +106,7 @@ namespace SupportCenter.DAL
 
             return success;
         }
-        
+
         public void DeleteTicket(int ticketNumber)
         {
             var url = BaseUrl + "Ticket/" + ticketNumber;

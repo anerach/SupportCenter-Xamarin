@@ -35,8 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AnswerTicket.xaml.cs">
-      <DependentUpon>AnswerTicket.xaml</DependentUpon>
+    <Compile Include="TicketResponseCreate.xaml.cs">
+      <DependentUpon>TicketResponseCreate.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.cs" />
     <Compile Include="Dashboard.xaml.cs">
@@ -90,17 +90,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DAL\DAL.csproj">
-      <Project>{995ACA57-CFD7-4A8B-8D8A-9B85B4258FDC}</Project>
-      <Name>DAL</Name>
+    <ProjectReference Include="..\..\BL\BL.csproj">
+      <Project>{67693530-d38a-4fa4-acb8-c1a9665a94a8}</Project>
+      <Name>BL</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Domain\Domain.csproj">
-      <Project>{5EE81B3D-0800-4143-A3DA-9F3F0D5CB73C}</Project>
+      <Project>{5ee81b3d-0800-4143-a3da-9f3f0d5cb73c}</Project>
       <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AnswerTicket.xaml">
+    <EmbeddedResource Include="TicketResponseCreate.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

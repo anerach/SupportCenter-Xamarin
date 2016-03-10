@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SupportCenter.TicketResponseCreate"
+             Title="Create Response">
+  <StackLayout Orientation="Vertical" Padding="10">
+    <Label Text="Response" FontSize="20"/>
+    <Entry x:Name="txtResponse" VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
+    <StackLayout Orientation="Horizontal" HeightRequest="40">
+      <Label Text="Client?" VerticalOptions="Center"/>
+      <Switch x:Name="tglClient" VerticalOptions="Center" IsToggled="True"/>
+    </StackLayout>
+    <Button Text="Create Ticket!" Clicked="Button_OnClicked"/>
+  </StackLayout>
+</ContentPage>

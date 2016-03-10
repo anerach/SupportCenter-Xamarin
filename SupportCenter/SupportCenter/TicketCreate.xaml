@@ -2,13 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SupportCenter.TicketCreate"
-             Title="Create a ticket">
+             Title="Create Ticket">
   <StackLayout Orientation="Vertical" Padding="10">
-  <Label Text="Account Id:" HorizontalOptions="Center" />
-  <Entry x:Name="AccountId" HorizontalOptions="Center" Keyboard="Numeric"/>
-      <Label Text="Problem" HorizontalOptions="Center"/>
-      <Entry x:Name="Problem"></Entry>
-      <Button x:Name="btCreate"
-              Clicked="BtCreate_OnClicked" Text="Create your ticket!"></Button>
-    </StackLayout>
-  </ContentPage>
+    <Label Text="Ticket" FontSize="20"/>
+
+    <Label Text="Account ID" FontSize="16"/>
+    <Entry x:Name="txtAccountId" Keyboard="Numeric" WidthRequest="50"/>
+
+    <Label Text="Problem" FontSize="16"/>
+    <Entry x:Name="txtText"></Entry>
+
+    <Button x:Name="btnCreate" Clicked="BtnCreate_OnClicked" Text="Create Ticket"></Button>
+  </StackLayout>
+</ContentPage>

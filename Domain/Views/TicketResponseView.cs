@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SupportCenter.Domain.Models;
+using SC.BL.Domain;
 using Xamarin.Forms;
 
-namespace SupportCenter.Domain.Views
+namespace SC.BL.Domain.Views
 {
     public class TicketResponseView
     {
-        private TicketResponse TicketResponse { get; }
+        public TicketResponse TicketResponse { get; }
 
         public string Id => $"#{TicketResponse.Id}";
         public string Text => TicketResponse.Text;
