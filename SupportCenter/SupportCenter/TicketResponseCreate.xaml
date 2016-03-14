@@ -10,6 +10,6 @@
       <Label Text="Client?" VerticalOptions="Center"/>
       <Switch x:Name="tglClient" VerticalOptions="Center" IsToggled="True"/>
     </StackLayout>
-    <Button Text="Create Ticket!" Clicked="Button_OnClicked"/>
+    <Button Text="Create Response!" Clicked="Button_OnClicked"/>
   </StackLayout>
 </ContentPage>
