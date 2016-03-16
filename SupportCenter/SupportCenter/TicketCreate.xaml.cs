@@ -24,22 +24,28 @@ namespace SupportCenter
         
         private async void BtnCreate_OnClicked(object sender, EventArgs e)
         {
-            Ticket ticket = new Ticket()
+            try
             {
-                AccountId = Convert.ToInt32(txtAccountId.Text),
-                Text = txtText.Text
-            };
+                var ticket = new Ticket()
+                {
+                    AccountId = Convert.ToInt32(txtAccountId.Text),
+                    Text = txtText.Text
+                };
 
-            ticket = manager.CreateTicket(ticket);
+                ticket = await Task.Run(() => manager.CreateTicket(ticket));
 
-            if (ticket != null)
-            {
-                await DisplayAlert("Ticket created!", ticket.Text, "OK");
-                await Navigation.PopAsync(true);
+                if (ticket != null)
+                {
+                    await DisplayAlert("Ticket created!", ticket.Text, "OK");
+                    await Navigation.PopAsync(true);
+                }
+                else
+                    await DisplayAlert("Oy Vey!", "Something went wrong...\nTry again in a minute please...", "OK");
             }
-            else
-                await DisplayAlert("Oy Vey!", "Something went wrong...\nTry again in a minute please...", "OK");
-            
+            catch (AggregateException)
+            {
+                await DisplayAlert("Error", "No internet connection", "Ok");
+            }
         }
     }
 }

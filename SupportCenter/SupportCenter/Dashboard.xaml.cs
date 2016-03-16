@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Newtonsoft.Json;
 using SC.BL;
+using SC.BL.Domain;
 using SC.BL.Domain.Views;
 
 using Xamarin.Forms;
@@ -39,49 +40,72 @@ namespace SupportCenter
             LoadTickets();
         }
 
-        private void LoadTickets()
+        private async void LoadTickets()
         {
-            ListViewTickets.ItemsSource = null;
+            try
+            {
+                ListViewTickets.ItemsSource = null;
 
-            IEnumerable<TicketView> ticketViews = manager.GetTickets().Select(ticket => new TicketView(ticket)).ToList();
-            var observable = new ObservableCollection<TicketView>(ticketViews);
+                var ticketViews = await Task.Run(() => manager.GetTicketViews());
+                var observable = new ObservableCollection<TicketView>(ticketViews);
 
-            ListViewTickets.ItemsSource = observable;
-
-            if(ListViewTickets.IsRefreshing)
-                ListViewTickets.IsRefreshing = false;
+                ListViewTickets.ItemsSource = observable;
+            }
+            catch (AggregateException)
+            {
+                await DisplayAlert("Error", "No internet connection", "Ok");
+            }
+            finally
+            {
+                if (ListViewTickets.IsRefreshing)
+                    ListViewTickets.IsRefreshing = false;
+            }
         }
 
-        private void ListViewTickets_OnItemTapped(object sender, ItemTappedEventArgs e)
+        private async void ListViewTickets_OnItemTapped(object sender, ItemTappedEventArgs e)
         {
             var ticket = (TicketView)e.Item;
 
-            Navigation.PushAsync(new TicketDetails(ticket.Ticket.TicketNumber));
+            await Navigation.PushAsync(new TicketDetails(ticket.Ticket.TicketNumber));
 
             ListViewTickets.SelectedItem = null;
         }
 
-        private void BtnCreate_OnClicked(object sender, EventArgs e)
+        private async void BtnCreate_OnClicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new TicketCreate());
+            await Navigation.PushAsync(new TicketCreate());
         }
 
-        public void OnClose(object sender, object e)
+        public async void OnClose(object sender, object e)
         {
-            var ticketView = (TicketView)((MenuItem)sender).CommandParameter;
+            try
+            {
+                var ticketView = (TicketView)((MenuItem)sender).CommandParameter;
 
-            manager.CloseTicket(ticketView.Ticket);
+                manager.CloseTicket(ticketView.Ticket);
 
-            LoadTickets();
+                LoadTickets();
+            }
+            catch (AggregateException)
+            {
+                await DisplayAlert("Error", "No internet connection", "Ok");
+            }
         }
 
-        public void OnDelete(object sender, EventArgs e)
+        public async void OnDelete(object sender, EventArgs e)
         {
-            var ticketView = (TicketView)((MenuItem)sender).CommandParameter;
+            try
+            {
+                var ticketView = (TicketView)((MenuItem)sender).CommandParameter;
 
-            manager.DeleteTicket(ticketView.Ticket);
+                manager.DeleteTicket(ticketView.Ticket);
 
-            LoadTickets();
+                LoadTickets();
+            }
+            catch (AggregateException)
+            {
+                await DisplayAlert("Error", "No internet connection", "Ok");
+            }
         }
     }
 }

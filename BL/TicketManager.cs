@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SC.BL.Domain;
+using SC.BL.Domain.Views;
 using SC.DAL;
 
 namespace SC.BL
@@ -22,9 +23,19 @@ namespace SC.BL
             return repo.GetTickets();
         }
 
+        public IEnumerable<TicketView> GetTicketViews()
+        {
+            return repo.GetTickets().Select(ticket => new TicketView(ticket));
+        } 
+
         public Ticket GetTicket(int ticketNumber)
         {
             return repo.GetTicket(ticketNumber);
+        }
+
+        public TicketView GetTicketView(int ticketNumber)
+        {
+            return new TicketView(GetTicket(ticketNumber));
         }
 
         public Ticket CreateTicket(Ticket ticket)

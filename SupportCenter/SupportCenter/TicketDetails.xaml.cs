@@ -14,7 +14,7 @@ namespace SupportCenter
     public partial class TicketDetails : ContentPage
     {
         private readonly TicketManager manager;
-        private TicketView ticket;
+        private TicketView Ticket { get; set; }
         private int ticketNumber;
 
         public TicketDetails(int ticketNumber)
@@ -26,36 +26,50 @@ namespace SupportCenter
             this.ticketNumber = ticketNumber;
         }
 
-        private void TicketDetails_OnAppearing(object sender, EventArgs e)
+        private async void TicketDetails_OnAppearing(object sender, EventArgs e)
         {
-            ticket = new TicketView(manager.GetTicket(ticketNumber));
-
-            BindingContext = ticket;
-
-            if (ticket.Ticket.State == TicketState.Closed)
+            try
             {
+                Ticket = await Task.Run(() => manager.GetTicketView(ticketNumber));
+
+                BindingContext = Ticket;
+
+                if (Ticket.Ticket.State != TicketState.Closed)
+                    return;
+
                 btnClose.IsVisible = false;
                 btnClose.IsEnabled = false;
 
                 btnAnswer.IsVisible = false;
                 btnAnswer.IsEnabled = false;
             }
-        }
-
-        private void btnClose_OnClicked(object sender, EventArgs e)
-        {
-            if (manager.CloseTicket(ticket.Ticket))
+            catch (AggregateException)
             {
-                DisplayAlert("You did good!", "The ticket has been succesfully closed!", "OK");
-                Navigation.PopAsync(true);
+                await DisplayAlert("Error", "No internet connection", "Ok");
             }
-            else
-                DisplayAlert("Oh no!", "Something went wrong... Please try again in a minute...", "OK");
         }
 
-        private void btnAnswer_OnClicked(object sender, EventArgs e)
+        private async void btnClose_OnClicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new TicketResponseCreate(ticket));
+            try
+            {
+                if (manager.CloseTicket(Ticket.Ticket))
+                {
+                    await DisplayAlert("You did good!", "The Ticket has been succesfully closed!", "OK");
+                    await Navigation.PopAsync(true);
+                }
+                else
+                    await DisplayAlert("Oh no!", "Something went wrong... Please try again in a minute...", "OK");
+            }
+            catch (AggregateException)
+            {
+                await DisplayAlert("Error", "No internet connection", "Ok");
+            }
+        }
+
+        private async void btnAnswer_OnClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new TicketResponseCreate(Ticket));
         }
 
         private void ListViewResponses_OnItemTapped(object sender, ItemTappedEventArgs e)

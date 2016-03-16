@@ -25,24 +25,31 @@ namespace SupportCenter
         }
 
 
-        private void Button_OnClicked(object sender, EventArgs e)
+        private async void Button_OnClicked(object sender, EventArgs e)
         {
-            TicketResponse ticketResponse = new TicketResponse()
+            try
             {
-                IsClientResponse = tglClient.IsToggled,
-                Text = txtResponse.Text,
-                Ticket = ticket.Ticket
-            };
+                var ticketResponse = new TicketResponse()
+                {
+                    IsClientResponse = tglClient.IsToggled,
+                    Text = txtResponse.Text,
+                    Ticket = ticket.Ticket
+                };
 
-            ticketResponse = manager.CreateTicketResponse(ticketResponse);
+                ticketResponse = await Task.Run(() => manager.CreateTicketResponse(ticketResponse));
 
-            if (ticketResponse == null)
-            {
-                DisplayAlert("Error", "Make sure every field is filled in", "Cancel").Start();
-                return;
+                if (ticketResponse == null)
+                {
+                    await DisplayAlert("Error", "Make sure every field is filled in", "Cancel");
+                    return;
+                }
+
+                await Navigation.PopAsync(true);
             }
-            
-            Navigation.PopAsync(true);
+            catch (AggregateException)
+            {
+                await DisplayAlert("Error", "No internet connection", "Ok");
+            }
         }
     }
 }
