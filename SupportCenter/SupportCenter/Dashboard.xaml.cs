@@ -27,20 +27,22 @@ namespace SupportCenter
 
             manager = new TicketManager();
 
-            ListViewTickets.RefreshCommand = new Command(() =>
+            ListViewTickets.RefreshCommand = new Command(async () =>
             {
                 ListViewTickets.IsRefreshing = true;
 
-                LoadTickets();
+                await LoadTickets();
+
+                ListViewTickets.IsRefreshing = false;
             });
         }
 
-        private void OnAppearing(object sender, EventArgs args)
+        private async void OnAppearing(object sender, EventArgs args)
         {
-            LoadTickets();
+            await LoadTickets();
         }
 
-        private async void LoadTickets()
+        private async Task<bool> LoadTickets()
         {
             try
             {
@@ -54,12 +56,11 @@ namespace SupportCenter
             catch (AggregateException)
             {
                 await DisplayAlert("Error", "No internet connection", "Ok");
+
+                return false;
             }
-            finally
-            {
-                if (ListViewTickets.IsRefreshing)
-                    ListViewTickets.IsRefreshing = false;
-            }
+
+            return true;
         }
 
         private async void ListViewTickets_OnItemTapped(object sender, ItemTappedEventArgs e)
@@ -84,7 +85,7 @@ namespace SupportCenter
 
                 manager.CloseTicket(ticketView.Ticket);
 
-                LoadTickets();
+                await LoadTickets();
             }
             catch (AggregateException)
             {
@@ -100,7 +101,7 @@ namespace SupportCenter
 
                 manager.DeleteTicket(ticketView.Ticket);
 
-                LoadTickets();
+                await LoadTickets();
             }
             catch (AggregateException)
             {
